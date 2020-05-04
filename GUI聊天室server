@@ -8,6 +8,7 @@ class Chat_server(socketserver.StreamRequestHandler):
                 print('data_b=',data_b)
                 if conns.count(conn)==0:
                     conns.append(conn)
+                    name_s=data_b.decode('utf-8')
                     users.setdefault(conn,name_s)
                     data='Welcome '+name_s+'!'
                     data_s=''
