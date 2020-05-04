@@ -6,7 +6,7 @@ class Chat_server(socketserver.StreamRequestHandler):
             while True:
                 data_b = conn.recv(1024)
                 print('data_b=',data_b)
-                if conns.count(conn)==0;
+                if conns.count(conn)==0:
                     conns.append(conn)
                     users.setdefault(conn,name_s)
                     data='Welcome '+name_s+'!'
@@ -28,7 +28,7 @@ class Chat_server(socketserver.StreamRequestHandler):
             print('Error is ',e)
 conns=[]
 users={}
-ip='192.168..'
-server = socketserver.ThreadingTCPServer((ip,9988),chat_server)
+ip='192.168.62.130'
+server = socketserver.ThreadingTCPServer((ip,9988),Chat_server)
 print('Wait for TCP connecting...')
-server.server_forever()
+server.serve_forever()
