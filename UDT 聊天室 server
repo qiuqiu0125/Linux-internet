@@ -1,0 +1,40 @@
+import socket
+s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+s.bind(('192.168.62.130',9988))
+print('Wait for UDP connecting...')
+        #conn=self.request
+        
+        #try:
+            #while True:
+                #data_b=conn.recv(1024)
+conns=[]
+users={}
+while True:
+    data_b,client=s.recvfrom(1024)
+    print('data_b=',data_b)
+    if conns.count(client)==0:
+        conns.append(client)
+        name_s=data_b.decode('utf-8')
+        users.setdefault(client,name_s)
+        data='Welcome '+name_s+'!'
+        data_s=''
+    else:
+        name_s=users.get(client)
+        data_s=data_b.decode('utf-8')
+        data=name_s+': '+data_s
+    for cn in conns:
+        data_b=data.encode('utf-8')
+        s.sendto(data_b,cn)
+    if data_s.upper()[0:3]=='BYE':
+        print('%s is exited!' % name_s)
+        conns.remove(client)
+        del(users[client])
+                    #break
+    print('data=',data)
+       #except Exception as e:
+       #print('Error is ',e)
+
+    ip='192.168.62.130'
+    
+#s.serve_forever()
+
